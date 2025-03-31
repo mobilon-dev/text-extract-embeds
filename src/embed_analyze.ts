@@ -5,10 +5,6 @@ interface MatchResult {
     index: number;
 }
 
-interface AnalysisResult {
-    [key: string]: MatchResult[];
-}
-
 interface PlatformRegex {
     [key: string]: string;
 }
@@ -63,12 +59,11 @@ const PLATFORM_REGEX: PlatformRegex = {
         // 'CEROS': //,
 }
 
-export function analyzeEmbed(data: string): AnalysisResult {
-    const results: AnalysisResult = {};
+export function analyzeEmbed(data: string): MatchResult[] {
+    const results: MatchResult[] = [];
 
-    for (const [type, regexString] of Object.entries(PLATFORM_REGEX)) { // Только для VIDEO, чтобы не было ошибок
+    for (const [type, regexString] of Object.entries(PLATFORM_REGEX)) {
         const regex = new RegExp(regexString, 'g');
-        const matches: MatchResult[] = [];
         let match: RegExpExecArray | null;
 
         while ((match = regex.exec(data)) !== null) {
@@ -81,16 +76,12 @@ export function analyzeEmbed(data: string): AnalysisResult {
             }
 
 
-            matches.push({
+            results.push({
                 type,
                 videoId: videoId,
                 url: fullMatch,
                 index: match.index,
             });
-        }
-
-        if (matches.length > 0) {
-            results[type] = matches;
         }
     }
 
