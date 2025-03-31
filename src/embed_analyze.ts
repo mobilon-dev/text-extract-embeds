@@ -10,58 +10,38 @@ interface AnalysisResult {
 }
 
 interface PlatformRegex {
-    VIDEO: {
-        [key: string]: string;
-    };
-    AUDIO: {
-        [key: string]: string;
-    };
-    SOCIAL_NETWORKS: {
-        [key: string]: string;
-    };
-    MAPS: {
-        [key: string]: string;
-    };
-    DOCUMENTS: {
-        [key: string]: string;
-    };
-    '3D_MODELS': {
-        [key: string]: string;
-    };
-    OTHER: {
-        [key: string]: string;
-    };
+    [key: string]: string;
 }
 
 
 const PLATFORM_REGEX: PlatformRegex = {
-    'VIDEO': {
+        // video
         'YOUTUBE': '(?:https?://)?(?:www\\.)?(?:youtube\\.com\\/watch\\?v=|youtu\\.be\\/)([\\w-]+)',
         'VIMEO': '(?:https?://)?(?:www\\.)?vimeo\\.com\\/(\\d+)',
         'RUTUBE': '(?:https?://)?(?:www\\.)?rutube\\.ru\\/video\\/([\\w-]+)\/',
         'VK': '(?:https?://)?(?:www\\.)?vk\\.com\\/video-?(\\d+)_(\\d+)', // Modified VK regex to capture both parts of the ID
-    },
-    'AUDIO': {
+
+        // audio
         // 'SOUNDCLOUD': //,
         // 'SPOTIFY': //,
         // 'APPLE_MUSIC': //,
         // 'BANDCAMP': //,
         // 'ANCHOR': //,
-    },
-    'SOCIAL_NETWORKS': {
+
+        // social networks
         // 'X': //,
         // 'FACEBOOK': //,
         // 'INSTAGRAM': //,
         // 'TIKTOK': //,
         // 'PINTEREST': //,
         // 'REDDIT': //,
-    },
-    'MAPS': {
+
+        // maps
         // 'GOOGLE_MAPS': //,
         // 'OPEN_STREET_MAP': //,
         // 'MAPBOX': //,
-    },
-    'DOCUMENTS': {
+
+        // documents
         // 'GOOGLE_DOCS': //,
         // 'GOOGLE_SHEETS': //,
         // 'GOOGLE_SLIDES': //,
@@ -69,11 +49,11 @@ const PLATFORM_REGEX: PlatformRegex = {
         // 'SCRIBD': //,
         // 'SLIDE_SHARE': //,
         // 'PREZI': //,
-    },
-    '3D_MODELS': {
+
+        // 3D-models
         // 'SKETCHFAB': //,
-    },
-    'OTHER': {
+
+        // other
         // 'TYPEFORM': //,
         // 'CODEPEN': //,
         // 'JSFIDDLE': //,
@@ -81,14 +61,12 @@ const PLATFORM_REGEX: PlatformRegex = {
         // 'GOOGLE_FORMS': //,
         // 'THING_LINK': //,
         // 'CEROS': //,
-    },
-
-};
+}
 
 export function analyzeEmbed(data: string): AnalysisResult {
     const results: AnalysisResult = {};
 
-    for (const [type, regexString] of Object.entries(PLATFORM_REGEX['VIDEO'])) { // Только для VIDEO, чтобы не было ошибок
+    for (const [type, regexString] of Object.entries(PLATFORM_REGEX)) { // Только для VIDEO, чтобы не было ошибок
         const regex = new RegExp(regexString, 'g');
         const matches: MatchResult[] = [];
         let match: RegExpExecArray | null;
