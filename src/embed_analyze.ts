@@ -1,5 +1,6 @@
 import {MatchResult} from './data'
 import {Analyzer} from './analyzer'
+
 import {
     YoutubeStrategy,
     VimeoStrategy,
@@ -11,12 +12,12 @@ import {
 export function analyzeEmbed(data: string): MatchResult[] {
     const results: MatchResult[] = [];
     const analyzer: Analyzer = new Analyzer();
+
     analyzer.use("youtube", new YoutubeStrategy());
     analyzer.use("vimeo", new VimeoStrategy());
     analyzer.use("rutube", new RutubeStrategy());
     analyzer.use("vk_video", new VkVideoStrategy());
     analyzer.use("yandex_music", new YandexMusicStrategy());
-
 
     const youtubeMatches = analyzer.analyze("youtube", data);
     if (youtubeMatches) results.push(...youtubeMatches);

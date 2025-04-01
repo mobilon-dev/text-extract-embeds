@@ -1,8 +1,9 @@
 {
   "name": "@mobilon-dev/text-extract-embeds",
   "version": "0.0.1",
+  "main": "dist/src/index",  
   "scripts": {
-    "test": "jest --verbose",
+    "test": "jest **/*.ts --verbose",
     "build:code": "npx tsc --build tsconfig.json",
     "build": "npm run build:code",
     "lint-fix": "eslint --fix .",
