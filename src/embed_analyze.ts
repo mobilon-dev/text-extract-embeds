@@ -1,67 +1,15 @@
-interface MatchResult {
-    type: string;
-    videoId: string | null;
-    url: string;
-    index: number;
-}
-
-interface PlatformRegex {
-    [key: string]: string;
-}
-
-
-const PLATFORM_REGEX: PlatformRegex = {
-        // video
-        'YOUTUBE': '(?:https?://)?(?:www\\.)?(?:youtube\\.com\\/watch\\?v=|youtu\\.be\\/)([\\w-]+)',
-        'VIMEO': '(?:https?://)?(?:www\\.)?vimeo\\.com\\/(\\d+)',
-        'RUTUBE': '(?:https?://)?(?:www\\.)?rutube\\.ru\\/video\\/([\\w-]+)\/',
-        'VK': '(?:https?://)?(?:www\\.)?vk\\.com\\/video-?(\\d+)_(\\d+)', // Modified VK regex to capture both parts of the ID
-
-        // audio
-        // 'SOUNDCLOUD': //,
-        // 'SPOTIFY': //,
-        // 'APPLE_MUSIC': //,
-        // 'BANDCAMP': //,
-        // 'ANCHOR': //,
-
-        // social networks
-        // 'X': //,
-        // 'FACEBOOK': //,
-        // 'INSTAGRAM': //,
-        // 'TIKTOK': //,
-        // 'PINTEREST': //,
-        // 'REDDIT': //,
-
-        // maps
-        // 'GOOGLE_MAPS': //,
-        // 'OPEN_STREET_MAP': //,
-        // 'MAPBOX': //,
-
-        // documents
-        // 'GOOGLE_DOCS': //,
-        // 'GOOGLE_SHEETS': //,
-        // 'GOOGLE_SLIDES': //,
-        // 'MICROSOFT_ONE_DRIVE': //,
-        // 'SCRIBD': //,
-        // 'SLIDE_SHARE': //,
-        // 'PREZI': //,
-
-        // 3D-models
-        // 'SKETCHFAB': //,
-
-        // other
-        // 'TYPEFORM': //,
-        // 'CODEPEN': //,
-        // 'JSFIDDLE': //,
-        // 'CODE_SANDBOX': //,
-        // 'GOOGLE_FORMS': //,
-        // 'THING_LINK': //,
-        // 'CEROS': //,
-}
+import {MatchResult, PLATFORM_REGEX} from './data'
+import {Analyzer} from './analyzer'
+import {YoutubeStrategy} from './strategy'
 
 export function analyzeEmbed(data: string): MatchResult[] {
     const results: MatchResult[] = [];
-
+    const analyzer: Analyzer = new Analyzer();
+    analyzer.use("YOUTUBE", new YoutubeStrategy());
+    const youtubeMatches: MatchResult[] | false = analyzer.analyze("YOUTUBE", data);
+    console.log('TEST youtubeMatches', youtubeMatches);
+    if (youtubeMatches) results.push(...youtubeMatches);
+    /*
     for (const [type, regexString] of Object.entries(PLATFORM_REGEX)) {
         const regex = new RegExp(regexString, 'g');
         let match: RegExpExecArray | null;
@@ -84,6 +32,7 @@ export function analyzeEmbed(data: string): MatchResult[] {
             });
         }
     }
+    */
 
     return results;
 }
