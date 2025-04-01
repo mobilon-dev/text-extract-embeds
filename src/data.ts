@@ -1,6 +1,8 @@
 export interface MatchResult {
     type: string;
-    videoId: string | null;
+    videoId?: string | null;
+    albumId?: string | null;
+    trackId?: string | null;
     url: string;
     index: number;
 }
@@ -17,6 +19,7 @@ export const PLATFORM_REGEX: PlatformRegex = {
         'vk_video': '(?:https?://)?(?:www\\.)?vk\\.com\\/video-?(\\d+)_(\\d+)', // Modified VK regex to capture both parts of the ID
 
         // audio
+        'yandex_music': '(?:https?://)?(?:music\\.yandex\\.(?:ru|com))\\/album\\/(\\d+)\\/track\\/(\\d+)',
         // 'SOUNDCLOUD': //,
         // 'SPOTIFY': //,
         // 'APPLE_MUSIC': //,

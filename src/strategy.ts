@@ -21,7 +21,7 @@ export class YoutubeStrategy implements Strategy {
     
                 results.push({
                     type,
-                    videoId: videoId,
+                    videoId,
                     url: fullMatch,
                     index: match.index,
                 });
@@ -45,7 +45,7 @@ export class VimeoStrategy implements Strategy {
     
                 results.push({
                     type,
-                    videoId: videoId,
+                    videoId,
                     url: fullMatch,
                     index: match.index,
                 });
@@ -69,7 +69,7 @@ export class RutubeStrategy implements Strategy {
     
                 results.push({
                     type,
-                    videoId: videoId,
+                    videoId,
                     url: fullMatch,
                     index: match.index,
                 });
@@ -96,7 +96,32 @@ export class VkVideoStrategy implements Strategy {
     
                 results.push({
                     type,
-                    videoId: videoId,
+                    videoId,
+                    url: fullMatch,
+                    index: match.index,
+                });
+            }
+    
+        return results;
+  }
+}
+
+export class YandexMusicStrategy implements Strategy {
+    analyze(data: string): MatchResult[]{
+        const results: MatchResult[] = [];
+        const type = 'yandex_music';
+        const regexString = PLATFORM_REGEX[type];
+            const regex = new RegExp(regexString, 'g');
+            let match: RegExpExecArray | null;
+    
+            while ((match = regex.exec(data)) !== null) {
+                const fullMatch = match[0];
+                const albumId: string | null = match[1] || null;
+                const trackId: string | null = match[2] || null;
+    
+                results.push({
+                    type,
+                    albumId, trackId,
                     url: fullMatch,
                     index: match.index,
                 });

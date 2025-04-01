@@ -5,6 +5,7 @@ import {
     VimeoStrategy,
     RutubeStrategy,
     VkVideoStrategy,
+    YandexMusicStrategy,
 } from './strategy'
 
 export function analyzeEmbed(data: string): MatchResult[] {
@@ -14,16 +15,19 @@ export function analyzeEmbed(data: string): MatchResult[] {
     analyzer.use("vimeo", new VimeoStrategy());
     analyzer.use("rutube", new RutubeStrategy());
     analyzer.use("vk_video", new VkVideoStrategy());
+    analyzer.use("yandex_music", new YandexMusicStrategy());
 
 
-    const youtubeMatches: MatchResult[] | false = analyzer.analyze("youtube", data);
+    const youtubeMatches = analyzer.analyze("youtube", data);
     if (youtubeMatches) results.push(...youtubeMatches);
-    const vimeoMatches: MatchResult[] | false = analyzer.analyze("vimeo", data);
+    const vimeoMatches = analyzer.analyze("vimeo", data);
     if (vimeoMatches) results.push(...vimeoMatches);
-    const rutubeMatches: MatchResult[] | false = analyzer.analyze("rutube", data);
+    const rutubeMatches = analyzer.analyze("rutube", data);
     if (rutubeMatches) results.push(...rutubeMatches);
-    const vkVideoMatches: MatchResult[] | false = analyzer.analyze("vk_video", data);
+    const vkVideoMatches = analyzer.analyze("vk_video", data);
     if (vkVideoMatches) results.push(...vkVideoMatches);
+    const yandexMusicMatches = analyzer.analyze("yandex_music", data);
+    if (yandexMusicMatches) results.push(...yandexMusicMatches);
     /*
     for (const [type, regexString] of Object.entries(PLATFORM_REGEX)) {
         const regex = new RegExp(regexString, 'g');
@@ -53,6 +57,8 @@ export function analyzeEmbed(data: string): MatchResult[] {
 }
 
 // Пример использования:
+/*
 const inputString = 'Привет. Вот видео с котами https://www.youtube.com/watch?v=JxS5E-kZc2s и плейлист:https://www.youtube.com/watch?v=yRfKToBbdOc     https://www.youtube.com/watch?v=OWXMsL_JnQQ  А вот видео Rutube: https://rutube.ru/video/b1c6f3a861e2e4f84179ba2f92521a57/  и vk: https://vk.com/video-45256126_456242536';
 const analysis = analyzeEmbed(inputString);
 console.log(analysis);
+*/
