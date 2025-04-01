@@ -1,14 +1,14 @@
 {
-  "name": "embed-analyze",
-  "version": "1.0.0",
+  "name": "@mobilon-dev/text-extract-embeds",
+  "version": "0.0.1",
   "scripts": {
     "test": "jest --verbose",
-    "start": "node src/index",
+    "build:code": "npx tsc --build tsconfig.json",
+    "build": "npm run build:code",
     "lint-fix": "eslint --fix .",
     "lint": "eslint ."
   },
-  "keywords": [],
-  "author": "",
+  "author": "Jullz10110",
   "license": "ISC",
   "description": "",
   "devDependencies": {

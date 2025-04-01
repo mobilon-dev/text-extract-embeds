@@ -1,5 +1,5 @@
 import {describe, expect, test} from '@jest/globals';
-import {analyzeEmbed} from '../src/embed_analyze.ts';
+import {analyzeEmbed} from '../src/embed_analyze';
 
 describe('General Embed Analysis', () => {
     it('should return an empty array if no matches are found', () => {
