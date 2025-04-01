@@ -1,14 +1,29 @@
 import {MatchResult, PLATFORM_REGEX} from './data'
 import {Analyzer} from './analyzer'
-import {YoutubeStrategy} from './strategy'
+import {
+    YoutubeStrategy,
+    VimeoStrategy,
+    RutubeStrategy,
+    VkVideoStrategy,
+} from './strategy'
 
 export function analyzeEmbed(data: string): MatchResult[] {
     const results: MatchResult[] = [];
     const analyzer: Analyzer = new Analyzer();
-    analyzer.use("YOUTUBE", new YoutubeStrategy());
-    const youtubeMatches: MatchResult[] | false = analyzer.analyze("YOUTUBE", data);
-    console.log('TEST youtubeMatches', youtubeMatches);
+    analyzer.use("youtube", new YoutubeStrategy());
+    analyzer.use("vimeo", new VimeoStrategy());
+    analyzer.use("rutube", new RutubeStrategy());
+    analyzer.use("vk_video", new VkVideoStrategy());
+
+
+    const youtubeMatches: MatchResult[] | false = analyzer.analyze("youtube", data);
     if (youtubeMatches) results.push(...youtubeMatches);
+    const vimeoMatches: MatchResult[] | false = analyzer.analyze("vimeo", data);
+    if (vimeoMatches) results.push(...vimeoMatches);
+    const rutubeMatches: MatchResult[] | false = analyzer.analyze("rutube", data);
+    if (rutubeMatches) results.push(...rutubeMatches);
+    const vkVideoMatches: MatchResult[] | false = analyzer.analyze("vk_video", data);
+    if (vkVideoMatches) results.push(...vkVideoMatches);
     /*
     for (const [type, regexString] of Object.entries(PLATFORM_REGEX)) {
         const regex = new RegExp(regexString, 'g');

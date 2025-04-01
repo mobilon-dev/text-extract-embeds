@@ -11,10 +11,10 @@ export interface PlatformRegex {
 
 export const PLATFORM_REGEX: PlatformRegex = {
         // video
-        'YOUTUBE': '(?:https?://)?(?:www\\.)?(?:youtube\\.com\\/watch\\?v=|youtu\\.be\\/)([\\w-]+)',
-        'VIMEO': '(?:https?://)?(?:www\\.)?vimeo\\.com\\/(\\d+)',
-        'RUTUBE': '(?:https?://)?(?:www\\.)?rutube\\.ru\\/video\\/([\\w-]+)\/',
-        'VK': '(?:https?://)?(?:www\\.)?vk\\.com\\/video-?(\\d+)_(\\d+)', // Modified VK regex to capture both parts of the ID
+        'youtube': '(?:https?://)?(?:www\\.)?(?:youtube\\.com\\/watch\\?v=|youtu\\.be\\/)([\\w-]+)',
+        'vimeo': '(?:https?://)?(?:www\\.)?vimeo\\.com\\/(\\d+)',
+        'rutube': '(?:https?://)?(?:www\\.)?rutube\\.ru\\/video\\/([\\w-]+)\/',
+        'vk_video': '(?:https?://)?(?:www\\.)?vk\\.com\\/video-?(\\d+)_(\\d+)', // Modified VK regex to capture both parts of the ID
 
         // audio
         // 'SOUNDCLOUD': //,
