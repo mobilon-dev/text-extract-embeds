@@ -11,9 +11,6 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "config": "^3.3.12"
-  },
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-typescript": "^7.27.0",
